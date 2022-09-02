@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 export default function Form({ formSubmitData }) {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
 
   const handleInputChange = event => {
     const { name, value } = event.target;
@@ -12,8 +12,8 @@ export default function Form({ formSubmitData }) {
       case 'name':
         setName(value);
         break;
-      case 'number':
-        setNumber(value);
+      case 'phone':
+        setPhone(value);
         break;
       default:
         return;
@@ -22,13 +22,13 @@ export default function Form({ formSubmitData }) {
 
   const onFormSubmit = event => {
     event.preventDefault();
-    formSubmitData({ name, number });
+    formSubmitData({ name, phone });
     resetForm();
   };
 
   const resetForm = () => {
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   return (
@@ -47,15 +47,15 @@ export default function Form({ formSubmitData }) {
           required
         />
       </label>
-      <label htmlFor="number">
+      <label htmlFor="phone">
         Number
         <input
           className={s.inputNumber}
-          id="number"
+          id="phone"
           onChange={handleInputChange}
           type="tel"
-          name="number"
-          value={number}
+          name="phone"
+          value={phone}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required

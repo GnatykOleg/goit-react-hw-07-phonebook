@@ -1,23 +1,30 @@
 import { Form, Contacts, Filter } from 'components';
 import { useSelector, useDispatch } from 'react-redux';
-import { setContacts } from 'redux/contacts/contacts-actions';
+import { addContacts, fetchContacts } from 'redux/contacts/contacts-operations';
+import { useEffect } from 'react';
 
 export function App() {
-  const { contacts, filter } = useSelector(state => state.phoneBook);
+  const contacts = useSelector(state => state.contacts);
+  const filter = useSelector(state => state.filter);
+
   const dispatch = useDispatch();
 
-  const formSubmitData = contact => {
-    const newContactName = contact.name.toLowerCase();
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
-    if (contacts.some(el => el.name.toLowerCase() === newContactName)) {
-      alert(`${contact.name} is already in contacts`);
+  const formSubmitData = ({ name, phone }) => {
+    const newContactName = name.toLowerCase();
+
+    if (contacts.some(({ name }) => name.toLowerCase() === newContactName)) {
+      alert(`${name} is already in contacts`);
     } else {
-      dispatch(setContacts(contact));
+      dispatch(addContacts({ name, phone }));
     }
   };
 
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
+  const filteredContacts = contacts.filter(({ name }) =>
+    name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
   );
 
   return (
