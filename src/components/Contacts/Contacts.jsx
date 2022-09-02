@@ -1,11 +1,10 @@
 import { useDispatch } from 'react-redux';
-import { deleteContacts } from '../../redux/contacts/contactsSlice';
+import { deleteContacts } from 'redux/contacts/contacts-actions';
 import PropTypes from 'prop-types';
 import s from './Contacts.module.css';
 
 export default function Contacts({ data }) {
   const dispatch = useDispatch();
-
   return (
     <ul className={s.list}>
       <h3 className={s.listTitle}>Total contacts: {data.length}</h3>

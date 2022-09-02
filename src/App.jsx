@@ -1,10 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux';
 import { Form, Contacts, Filter } from 'components';
-import { addContacts } from './redux/contacts/contactsSlice';
-import shortid from 'shortid';
+import { useSelector, useDispatch } from 'react-redux';
+import { setContacts } from 'redux/contacts/contacts-actions';
 
 export function App() {
-  const { contacts, filter } = useSelector(state => state.contacts);
+  const { contacts, filter } = useSelector(state => state.phoneBook);
   const dispatch = useDispatch();
 
   const formSubmitData = contact => {
@@ -13,11 +12,7 @@ export function App() {
     if (contacts.some(el => el.name.toLowerCase() === newContactName)) {
       alert(`${contact.name} is already in contacts`);
     } else {
-      const newContact = {
-        id: shortid(),
-        ...contact,
-      };
-      dispatch(addContacts(newContact));
+      dispatch(setContacts(contact));
     }
   };
 
